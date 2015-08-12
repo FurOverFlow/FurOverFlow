@@ -13,7 +13,10 @@ var express = require('express'),
     LocalStrategy = require('passport-local'),
     TwitterStrategy = require('passport-twitter').Strategy,
     GoogleStrategy = require('passport-google'),
-    FacebookStrategy = require('passport-facebook');
+    FacebookStrategy = require('passport-facebook'),
+    mongoose = require('mongoose');
+
+var User = require('./app/models/user');
 
 
 // We Will be creating these two files shortly
@@ -183,7 +186,7 @@ app.post('/login', passport.authenticate('local-signin', {
 //logs user out of site, deleting them from the session, and returns to homepage
 app.get('/logout', function(req, res){
     var name = req.user.username;
-    console.log("LOGGIN OUT " + req.user.username)
+    console.log("LOGGIN OUT " + req.user.username);
     req.logout();
     res.redirect('/');
     req.session.notice = "You have successfully been logged out " + name + "!";
